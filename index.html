@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highway Rush</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>HIGHWAY RUSH</h1>
+            <p class="subtitle">Race through traffic and survive as long as you can!</p>
+        </div>
+        
+        <div class="canvas-wrapper">
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            
+            <!-- Start Screen Overlay -->
+            <div id="startScreen" class="overlay">
+                <div class="instructions">
+                    <h3>How to Play:</h3>
+                    <p>🎮 Use <strong>ARROW KEYS</strong> or <strong>A/D</strong> to move left/right</p>
+                    <p>⏸️ Press <strong>SPACE</strong> to pause/resume</p>
+                    <p>🎯 Avoid obstacles and survive as long as possible!</p>
+                    <p>⚡ Speed increases over time - stay alert!</p>
+                </div>
+                <button id="startButton" class="game-button">PRESS SPACE TO START</button>
+                <div id="highScoreDisplay" class="high-score-display"></div>
+            </div>
+            
+            <!-- Game Over Screen Overlay -->
+            <div id="gameOverScreen" class="overlay hidden">
+                <h2>GAME OVER!</h2>
+                <div class="stats">
+                    <p class="final-score">Score: <span id="finalScore">0</span></p>
+                    <p class="stat-item">Time Survived: <span id="timeSurvived">0</span>s</p>
+                    <p class="high-score-text">High Score: <span id="gameOverHighScore">0</span></p>
+                    <p id="newHighScore" class="new-high-score hidden">🎉 NEW HIGH SCORE! 🎉</p>
+                </div>
+                <button id="restartButton" class="game-button">PRESS SPACE TO RESTART</button>
+            </div>
+            
+            <!-- Pause Screen Overlay -->
+            <div id="pauseScreen" class="overlay hidden">
+                <h2>PAUSED</h2>
+                <p>Press SPACE to resume</p>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <div class="info-item">
+                <span class="label">Score:</span>
+                <span id="scoreDisplay" class="value">0</span>
+            </div>
+            <div class="info-item">
+                <span class="label">High Score:</span>
+                <span id="highScorePanel" class="value">0</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Speed:</span>
+                <span id="speedDisplay" class="value">1.0x</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Level:</span>
+                <span id="levelDisplay" class="value">1</span>
+            </div>
+        </div>
+        
+        <div class="debug-panel" id="debugPanel">
+            <h4>Debug Info (Developer Mode)</h4>
+            <p>FPS: <span id="fpsDisplay">60</span></p>
+            <p>Obstacles: <span id="obstacleCount">0</span></p>
+            <p>Player Lane: <span id="playerLane">2</span></p>
+        </div>
+    </div>
+    
+    <!-- Load JavaScript modules in order -->
+    <script src="js/config.js"></script>
+</body>
+</html>
