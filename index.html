@@ -67,15 +67,12 @@
             </div>
         </div>
         
-        <div class="debug-panel" id="debugPanel">
-            <h4>Debug Info (Developer Mode)</h4>
-            <p>FPS: <span id="fpsDisplay">60</span></p>
-            <p>Obstacles: <span id="obstacleCount">0</span></p>
-            <p>Player Lane: <span id="playerLane">2</span></p>
-        </div>
-    </div>
     
     <!-- Load JavaScript modules in order -->
-    <script src="js/config.js"></script>
+    <script src="game/config.js"></script>
+    <script src="game/renderer.js"></script>
+    <script src="game/gameLogic.js"></script>
+    <script src="game/input.js"></script>
+    <script src="game/main.js"></script>
 </body>
 </html>
