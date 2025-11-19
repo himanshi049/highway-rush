@@ -149,3 +149,17 @@ function updateDifficulty() {
         gameState.obstacleSpawnRate = Math.max(40, 120 - (gameState.level * 8));
     }
 }
+
+// Export for testing (Node.js environment)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        updatePlayer,
+        updatePlayerPosition,
+        createObstacle,
+        randomLane,
+        updateObstacles,
+        checkCollision,
+        checkPlayerCollisions,
+        updateDifficulty
+    };
+}

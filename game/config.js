@@ -35,8 +35,7 @@ const gameState = {
     startTime: 0,
     survivalTime: 0,
     lastFrameTime: 0,
-    fps: 60,
-    debugMode: false
+    fps: 60
 };
 
 // Road configuration

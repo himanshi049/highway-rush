@@ -139,6 +139,10 @@ body {
     transition: opacity 0.3s ease;
 }
 
+.hidden {
+    display: none !important;
+}
+
 .overlay.hidden {
     display: none;
 }

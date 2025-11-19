@@ -158,13 +158,6 @@ function drawPlayer() {
     ctx.moveTo(x + w/2, y + 5);
     ctx.lineTo(x + w/2, y + 25);
     ctx.stroke();
-    
-    // Debug hitbox
-    if (gameState.debugMode) {
-        ctx.strokeStyle = '#2ECC71';
-        ctx.lineWidth = 2;
-        ctx.strokeRect(x + 5, y + 5, w - 10, h - 10);
-    }
 }
 
 /**
@@ -209,13 +202,6 @@ function drawObstacles() {
         ctx.fillStyle = '#C0392B';
         ctx.fillRect(x + 4, y + h - 4, 5, 3);
         ctx.fillRect(x + w - 9, y + h - 4, 5, 3);
-        
-        // Debug hitbox
-        if (gameState.debugMode) {
-            ctx.strokeStyle = '#E74C3C';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(x, y, w, h);
-        }
     });
 }
 
@@ -245,4 +231,15 @@ function adjustBrightness(color, percent) {
         (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
         (B < 255 ? B < 1 ? 0 : B : 255))
         .toString(16).slice(1);
+}
+
+// Export for testing (Node.js environment)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        drawRoad,
+        drawPlayer,
+        drawObstacles,
+        drawCanvasUI,
+        adjustBrightness
+    };
 }

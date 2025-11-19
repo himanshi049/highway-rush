@@ -3,13 +3,13 @@
  */
 
 
- // Initialize the game
 function initGame() {
     road.laneWidth = (canvas.width - road.edgeWidth * 2) / road.laneCount;
     player.y = canvas.height - player.height - 30;
     updatePlayerPosition();
     loadHighScore();
     updateHighScoreDisplay();
+    updateUI(); // Update the info panel with loaded high score
     setupEventListeners();
     requestAnimationFrame(gameLoop);
 }
@@ -37,7 +37,6 @@ function resetGame() {
     updateUI();
 }
 
- // Start a new game
 function startGame() {
     hideOverlay('startScreen');
     hideOverlay('gameOverScreen');
@@ -46,26 +45,26 @@ function startGame() {
     gameState.isPaused = false;
 }
 
- // Pause the game
 function pauseGame() {
     gameState.isPaused = true;
     showOverlay('pauseScreen');
 }
 
- // Resume the game
 function resumeGame() {
     gameState.isPaused = false;
     hideOverlay('pauseScreen');
 }
-  
-//End the game
+
 function gameOver() {
     gameState.isPlaying = false;
     gameState.survivalTime = Math.floor((Date.now() - gameState.startTime) / 1000);
     
+    const currentScore = Number(gameState.score);
+    const currentHighScore = Number(gameState.highScore);
+    
     let isNewHighScore = false;
-    if (gameState.score > gameState.highScore) {
-        gameState.highScore = gameState.score;
+    if (currentScore > currentHighScore) {
+        gameState.highScore = currentScore;
         saveHighScore();
         isNewHighScore = true;
     }
@@ -74,7 +73,6 @@ function gameOver() {
 }
 
 
- // Save high score to localStorage
 function saveHighScore() {
     try {
         localStorage.setItem('highwayRushHighScore', gameState.highScore.toString());
@@ -84,20 +82,21 @@ function saveHighScore() {
 }
 
 
- // Load high score from localStorage
 function loadHighScore() {
     try {
         const saved = localStorage.getItem('highwayRushHighScore');
-        if (saved) {
+        if (saved !== null && saved !== '') {
             gameState.highScore = parseInt(saved, 10);
+        } else {
+            gameState.highScore = 0;
         }
     } catch (e) {
         console.warn('Could not load high score:', e);
+        gameState.highScore = 0;
     }
 }
 
 
- // Main game loop
 function gameLoop(timestamp) {
     const deltaTime = timestamp - gameState.lastFrameTime;
     gameState.lastFrameTime = timestamp;
@@ -128,3 +127,18 @@ function gameLoop(timestamp) {
 
 // Start the game when page loads
 window.addEventListener('load', initGame);
+
+// Export for testing (Node.js environment)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        initGame,
+        resetGame,
+        startGame,
+        pauseGame,
+        resumeGame,
+        gameOver,
+        saveHighScore,
+        loadHighScore,
+        gameLoop
+    };
+}

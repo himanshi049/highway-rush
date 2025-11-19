@@ -11,12 +11,6 @@ function setupEventListeners() {
     document.addEventListener('keyup', handleKeyUp);
     document.getElementById('startButton').addEventListener('click', startGame);
     document.getElementById('restartButton').addEventListener('click', startGame);
-    
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'd' || e.key === 'D') {
-            toggleDebugMode();
-        }
-    });
 }
 
 /**
@@ -90,12 +84,6 @@ function updateUI() {
     document.getElementById('highScorePanel').textContent = gameState.highScore;
     document.getElementById('speedDisplay').textContent = gameState.speedMultiplier.toFixed(1) + 'x';
     document.getElementById('levelDisplay').textContent = gameState.level;
-    
-    if (gameState.debugMode) {
-        document.getElementById('fpsDisplay').textContent = Math.round(gameState.fps);
-        document.getElementById('obstacleCount').textContent = obstacles.length;
-        document.getElementById('playerLane').textContent = player.lane;
-    }
 }
 
 /**
@@ -120,10 +108,11 @@ function showGameOverScreen(isNewHighScore) {
     document.getElementById('timeSurvived').textContent = gameState.survivalTime;
     document.getElementById('gameOverHighScore').textContent = gameState.highScore;
     
+    const newHighScoreElement = document.getElementById('newHighScore');
     if (isNewHighScore) {
-        document.getElementById('newHighScore').classList.remove('hidden');
+        newHighScoreElement.classList.remove('hidden');
     } else {
-        document.getElementById('newHighScore').classList.add('hidden');
+        newHighScoreElement.classList.add('hidden');
     }
     
     showOverlay('gameOverScreen');
@@ -139,12 +128,17 @@ function updateHighScoreDisplay() {
     document.getElementById('highScoreDisplay').textContent = highScoreText;
 }
 
-/**
- * Toggle debug mode
- */
-function toggleDebugMode() {
-    gameState.debugMode = !gameState.debugMode;
-    const debugPanel = document.getElementById('debugPanel');
-    debugPanel.style.display = gameState.debugMode ? 'block' : 'none';
-    console.log('Debug mode:', gameState.debugMode ? 'ON' : 'OFF');
+// Export for testing (Node.js environment)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        setupEventListeners,
+        handleKeyDown,
+        handleKeyUp,
+        handleSpacePress,
+        updateUI,
+        showOverlay,
+        hideOverlay,
+        showGameOverScreen,
+        updateHighScoreDisplay
+    };
 }
